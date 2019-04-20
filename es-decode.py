@@ -67,3 +67,32 @@ def decode(cppn, input_coordinates, output_):
   
     # Create the substrate
 return create_es_substrate(cppn, substrate, connection_mappings, cppn_idx_dict)
+
+def create_es_substrate(cppn, substrate, mapping_tuples, id_dict, act_func="relu")
+
+  '''
+  Creates a neural network from a CPPN and substrate representation.
+
+  cppn      -- CPPN
+  substrate -- substrate representation (a dictionary of sheets and their respective coordinate maps)
+  mapping_tuples -- list of mappings to be created between substrate sheets
+  id_dict   -- dictionary of output node IDs and their respective mapping tuples
+  act_func  -- optional argument for the activation function of the substrate
+  '''
+  
+  # Assign coordinates to input, output, and bias layers
+  input_coordinates, output_coordinates, bias_coordinates = (substrate[(1,0)],(1,0)), (substrate[(0,0)],(0,0)), (substrate[(1,1)],(1,1))
+
+  # Assign ids to nodes in the substrate
+  input_node_ids = range(len(input_coordinates[0]))
+  bias_node_ids = range(len(input_node_ids), len(input_node_ids+bias_coordinates[0]))
+  output_node_ids = range(len(input_node_ids+bias_node_ids), len(input_node_ids+bias_node_ids+output_coordinates[0]))
+
+  # Remove the input and output layers from the substrate dictionary
+  del substrate[(1,0)], substrate[(0,0)], substrate[(1,1)]
+
+  # Create hidden layer coordinate maps
+  hidden_coordinates = [(substrate[k], k) for k in substrate.keys()] 
+  
+  # Where the magic happens
+  for sandwiches in mapping_tuples if sandwiches[0] = (1,0) #select all connection mappings that extend from input
