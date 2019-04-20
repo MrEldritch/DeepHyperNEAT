@@ -13,6 +13,12 @@ from phenomes import FeedForwardSubstrate
 import time
 
 def decode(cppn, input_dimensions, output_dimensions, sheet_dimensions=None):
+    
+    # Note for ES-Hyperneat implementation: replace input_dimensions, output_dimensions, sheet_dimensions
+    # Replace input & output dimensions with lists of (x,y) tuples that directly give positions of all input and output neurons
+    # sheet_dimensions can be removed entirely, as it is not relevant when sheet neuron placement is constructed implicitly
+    # replace with parameters for ES-HyperNeat stuff, like initial resolution, max resolution, banding threshold, etc.
+    
     '''
     Decodes a CPPN into a substrate.
 
